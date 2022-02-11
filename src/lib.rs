@@ -1,6 +1,5 @@
 use js_sys::JsString;
 use wasm_bindgen::prelude::*;
-use log::{Level, debug};
 
 const WORD_TEXT: &'static str = include_str!("word_list.txt");
 
@@ -15,7 +14,6 @@ pub fn wordle(
     in_word: &str,
 ) -> Vec<JsString> {
     std::panic::set_hook(Box::new(console_error_panic_hook::hook));
-    // console_log::init_with_level(Level::Debug).unwrap();
 
     let known_1 = known_1.to_lowercase().chars().min();
     let known_2 = known_2.to_lowercase().chars().min();
