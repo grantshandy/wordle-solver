@@ -1,2 +1,7 @@
 /target
 Cargo.lock
+/public/wordle.js
+*.wasm
+*.ts
+/public/package.json
+/public/README.md

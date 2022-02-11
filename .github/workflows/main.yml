@@ -27,13 +27,16 @@ jobs:
       run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
     - name: Build
-      run: wasm-pack build --target web --out-name wordle --out-dir public
+      run: wasm-pack build --target web --out-name wordle --out-dir tmp
 
     - name: Delete wasm-pack gitignore
-      run: rm -rf ./public/.gitignore
+      run: rm -rf tmp/.gitignore
+
+    - name: Copy Index
+      run: cp public/index.html public/index.js tmp/
  
     - name: Deploy to gh-pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
+        publish_dir: ./tmp
