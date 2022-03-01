@@ -22,7 +22,7 @@ const app = new Vue({
 
     methods: {
         getResults: function() {
-            this.results = wordle(this.known_1, this.known_2, this.known_3, this.known_4, this.known_5, this.not_in_word, this.in_word);
+            this.results = wordle([this.known_1, this.known_2, this.known_3, this.known_4, this.known_5], this.not_in_word, this.in_word);
             console.log(this.results);
         }
     }

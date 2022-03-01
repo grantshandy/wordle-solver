@@ -1,5 +1,5 @@
 # wordle-solver
 
 ```
-wasm-pack build --target web --out-name wasm --out-dir public && rm public/.gitignore
+wasm-pack build --target web --out-name wordle --out-dir public && rm public/.gitignore
 ```

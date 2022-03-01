@@ -5,71 +5,48 @@ const WORD_TEXT: &'static str = include_str!("word_list.txt");
 
 #[wasm_bindgen]
 pub fn wordle(
-    known_1: &str,
-    known_2: &str,
-    known_3: &str,
-    known_4: &str,
-    known_5: &str,
+    known: Vec<JsValue>,
     not_in_word: &str,
     in_word: &str,
 ) -> Vec<JsString> {
     std::panic::set_hook(Box::new(console_error_panic_hook::hook));
 
-    let known_1 = known_1.to_lowercase().chars().min();
-    let known_2 = known_2.to_lowercase().chars().min();
-    let known_3 = known_3.to_lowercase().chars().min();
-    let known_4 = known_4.to_lowercase().chars().min();
-    let known_5 = known_5.to_lowercase().chars().min();
-
-    let not_in_word = not_in_word.chars().collect::<Vec<char>>();
-    let in_word = in_word.chars().collect::<Vec<char>>();
+    let not_in_word = not_in_word.chars().map(|x| { x.to_ascii_lowercase() }).collect::<Vec<char>>();
+    let in_word = in_word.chars().map(|x| { x.to_ascii_lowercase() }).collect::<Vec<char>>();
 
     let mut res = Vec::new();
 
-    let word_list = WORD_TEXT.lines();
-
-    'word_loop: for word in word_list {
-        let chars: Vec<char> = word.chars().collect();
-
+    // go through all words in the word list
+    'word_loop: for word in WORD_TEXT.lines() {
+        // skip word if word contains a char that's not supposed to be in there
         for c in not_in_word.iter() {
             if word.contains(*c) {
                 continue 'word_loop;
             }
         }
 
+        // skip word if word doesn't contain one of the chars it needs
         for c in in_word.iter() {
             if !word.contains(*c) {
                 continue 'word_loop;
             }
         }
 
-        if let Some(k) = known_1 {
-            if chars[0] != k {
-                continue;
-            }
-        }
+        // get a list of all the characters in the word
+        let chars: Vec<char> = word.chars().collect();
 
-        if let Some(k) = known_2 {
-            if chars[1] != k {
-                continue;
-            }
-        }
+        // go through all the known chars, continue if we don't match
+        for (n, k) in known.iter().enumerate() {
+            let first = match k.as_string() {
+                Some(d) => match d.chars().min() {
+                    Some(d) => d,
+                    None => continue,
+                },
+                None => continue,
+            }.to_ascii_lowercase();
 
-        if let Some(k) = known_3 {
-            if chars[2] != k {
-                continue;
-            }
-        }
-
-        if let Some(k) = known_4 {
-            if chars[3] != k {
-                continue;
-            }
-        }
-
-        if let Some(k) = known_5 {
-            if chars[4] != k {
-                continue;
+            if chars[n] != first {
+                continue 'word_loop;
             }
         }
 

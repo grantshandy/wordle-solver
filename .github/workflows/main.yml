@@ -28,7 +28,6 @@ jobs:
 
     - name: Build
       run: wasm-pack build --target web --out-name wordle --out-dir tmp
-
     - name: Delete wasm-pack gitignore
       run: rm -rf tmp/.gitignore
 
