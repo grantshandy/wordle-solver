@@ -1,48 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link href="//unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-        <title>Wordle Solver</title>
-    </head>
-    <body>
-        <div class="p-5 space-y-5" id="app">
-            <h1 class="text-center text-3xl text-semibold">Wordle Solver</h1>
-            <div class="p-4 space-y-4 mx-auto w-1/2 bg-gray-700 rounded-xl text-center text-white">
-                <div>
-                    <p>Known Letters</p>
-                    <div class="text-black">
-                        <input class="w-5 h-5" v-model="known_1" maxlength="1" />
-                        <input class="w-5 h-5" v-model="known_2" maxlength="1" />
-                        <input class="w-5 h-5" v-model="known_3" maxlength="1" />
-                        <input class="w-5 h-5" v-model="known_4" maxlength="1" />
-                        <input class="w-5 h-5" v-model="known_5" maxlength="1" />
-                    </div>
-                </div>
-
-                <div>
-                    <p>Letters that are in the word</p>
-                    <input class="text-black" v-model="in_word" />
-                </div>
-
-                <div>
-                    <p>Letters that are not in the word</p>
-                    <input class="text-black" v-model="not_in_word" />
-                </div>
-
-                <button v-on:click="getResults" class="text-semibold hover:bg-green-600 bg-green-500 rounded-xl p-4">Search</button>
-
-                <div class="grid grid-cols-5">
-                    <div v-for="x in results">
-                        <div class="px-2 py-1 m-2 bg-gray-500 hover:bg-gray-600 rounded-md">
-                            <p>{{ x }}</p>
-                        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle Solver</title>
+    <link href="//unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="flex" id="app">
+        <div class="flex-1 md:flex-none md:w-4/5 md:mx-auto m-3 p-4 text-center rounded-md text-white bg-blue-900 space-y-4">
+            <h1 class="font-semibold text-3xl mt-5">Wordle Solver</h1>
+            <div class="space-x-2 space-y-2">
+                <p>Known Letters</p>
+                <input class="w-8 h-8 rounded-sm text-black" v-model="known_1" maxlength="1" />
+                <input class="w-8 h-8 rounded-sm text-black" v-model="known_2" maxlength="1" />
+                <input class="w-8 h-8 rounded-sm text-black" v-model="known_3" maxlength="1" />
+                <input class="w-8 h-8 rounded-sm text-black" v-model="known_4" maxlength="1" />
+                <input class="w-8 h-8 rounded-sm text-black" v-model="known_5" maxlength="1" />
+            </div>
+            <div class="space-y-2">
+                <p>Letters that are in the word</p>
+                <input class="text-black" v-model="in_word" />
+            </div>
+            <div class="space-y-2">
+                <p>Letters that are not in the word</p>
+                <input class="text-black" v-model="not_in_word" />
+            </div>
+            <button v-on:click="getResults" class="text-semibold hover:bg-blue-600 bg-blue-500 rounded-xl px-3 py-2 m-5">Search</button>
+            <!-- <div class="grid grid-cols-2"> -->
+            <div class="flex flex-wrap">
+                <div v-for="x in results">
+                    <div class="px-3 py-1 m-2 md:py-2 md:m-3 md:text-md bg-gray-500 hover:bg-gray-600 rounded-md cursor-pointer">
+                        <p>{{ x }}</p>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-        <script type="module" src="index.js"></script>
-    </body>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script type="module" src="index.js"></script>
+</body>
 </html>
