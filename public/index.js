@@ -11,7 +11,7 @@ const app = new Vue({
         known_5: '',
         not_in_word: '',
         in_word: '',
-        results: [],
+        results: null,
     },
 
     async created() {
